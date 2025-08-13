@@ -223,6 +223,7 @@ createTab("Visual", "rbxassetid://118732820826841", {
     { name = "PShader", url = "https://raw.githubusercontent.com/randomstring0/pshade-ultimate/refs/heads/main/src/cd.lua" },
     { name = "Show FPS", url = "https://raw.githubusercontent.com/Truongthanhden23023/fps/refs/heads/main/fps" },
     { name = "Music Player", url = "https://raw.githubusercontent.com/Truongthanhden23023/Musicplayer/refs/heads/main/musicplayer" },
+    { name = "Wyborn", url = "httpsttps://raw.githubusercontent.com/ckw69/Wyborn/main/wyborn', true" },
 })
 createTab("Fun", "rbxassetid://118732820826841", {
     { name = "Emote (Fast)", url = "https://rawscripts.net/raw/Universal-Script-Emote-Script-but-Fast-47944" },
