@@ -226,6 +226,20 @@ createTab("Doors", "rbxassetid://118732820826841", {
 -- You can add more tabs (examples kept)
 createTab("Visual", "rbxassetid://118732820826841", {
     { name = "PShader", url = "https://raw.githubusercontent.com/randomstring0/pshade-ultimate/refs/heads/main/src/cd.lua" },
+    { name = "Show FPS", url = "local RS,pl=game:GetService("RunService"),game.Players.LocalPlayer
+local g=Instance.new("ScreenGui",pl:WaitForChild("PlayerGui"))g.ResetOnSpawn=false
+local l=Instance.new("TextLabel",g)
+l.Size, l.Position=UDim2.new(0,150,0,40),UDim2.new(0,10,0,10)
+l.BackgroundTransparency=0.5 l.BackgroundColor3=Color3.new() l.Font=Enum.Font.Code l.TextSize=20 l.TextStrokeTransparency=0
+local lu,fc,ui=tick(),0,0.25
+RS.RenderStepped:Connect(function()
+	fc+=1 local n=tick()
+	if n-lu>=ui then
+		local fps=math.floor(fc/(n-lu)) fc=0 lu=n
+		l.Text=("FPS: %d"):format(fps)
+		l.TextColor3=fps>=60 and Color3.new(0,1,0) or fps>=30 and Color3.new(1,1,0) or Color3.new(1,0,0)
+	end
+end)"},
 })
 
 createTab("Fun", "rbxassetid://118732820826841", {
