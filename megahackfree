@@ -227,7 +227,7 @@ createTab("Doors", "rbxassetid://118732820826841", {
 createTab("Visual", "rbxassetid://118732820826841", {
     { name = "PShader", url = "https://raw.githubusercontent.com/randomstring0/pshade-ultimate/refs/heads/main/src/cd.lua" },
     { name = "Show FPS", url = "https://raw.githubusercontent.com/Truongthanhden23023/fps/refs/heads/main/fps" },
-    { name = "Music Player", url = "loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostPlayer352/Test4/refs/heads/main/ScriptAuthorization%20Source'))()Ioad('7208e39603889391caf77f6ff7d21e01" },
+    { name = "Music Player", url = "https://raw.githubusercontent.com/Truongthanhden23023/Musicplayer/refs/heads/main/musicplayer" },
 })
 
 createTab("Fun", "rbxassetid://118732820826841", {
