@@ -1,3 +1,8 @@
+-- ============================================================
+-- MegaHack GUI
+-- ============================================================
+
+-- Services
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
@@ -66,7 +71,7 @@ Instance.new("UICorner", barFill).CornerRadius = UDim.new(0,9)
 local mainFrame = Instance.new("Frame")
 mainFrame.AnchorPoint = Vector2.new(0.5,0.5)
 mainFrame.Position = UDim2.new(0.5,0,0.5,0)
-mainFrame.Size = UDim2.new(0,720,0,520) -- to hơn
+mainFrame.Size = UDim2.new(0,720,0,520)
 mainFrame.BackgroundColor3 = Color3.fromRGB(24,26,34)
 mainFrame.Visible = false
 mainFrame.Parent = screenGui
@@ -74,7 +79,7 @@ Instance.new("UICorner", mainFrame).CornerRadius = UDim.new(0,18)
 mainFrame.Active = true
 mainFrame.Draggable = true
 
--- Header (tabs bar container) — ScrollingFrame for horizontal scroll
+-- Header (tabs bar container)
 local tabBar = Instance.new("ScrollingFrame")
 tabBar.Name = "TabBar"
 tabBar.AnchorPoint = Vector2.new(0.5,0)
@@ -94,17 +99,16 @@ tabList.Padding = UDim.new(0,8)
 tabList.HorizontalAlignment = Enum.HorizontalAlignment.Left
 tabList.Parent = tabBar
 
--- auto-expand CanvasSize for horizontal dragging
 tabList:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
     tabBar.CanvasSize = UDim2.new(0, tabList.AbsoluteContentSize.X + 12, 0, 0)
 end)
 
--- Content area – ScrollingFrame for vertical scroll
+-- Content area
 local contentFrame = Instance.new("ScrollingFrame")
 contentFrame.Name = "Content"
 contentFrame.AnchorPoint = Vector2.new(0.5,1)
 contentFrame.Position = UDim2.new(0.5,0,1,-12)
-contentFrame.Size = UDim2.new(1,-20,1,-72) -- chừa chỗ cho tabBar
+contentFrame.Size = UDim2.new(1,-20,1,-72)
 contentFrame.BackgroundTransparency = 1
 contentFrame.ScrollBarThickness = 8
 contentFrame.ScrollingDirection = Enum.ScrollingDirection.Y
@@ -120,7 +124,6 @@ btnList:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
     contentFrame.CanvasSize = UDim2.new(0,0,0, btnList.AbsoluteContentSize.Y + 10)
 end)
 
--- Helper: create a pretty button
 local function createScriptButton(parent, text)
     local b = Instance.new("TextButton")
     b.Size = UDim2.new(0, 520, 0, 44)
@@ -132,7 +135,6 @@ local function createScriptButton(parent, text)
     b.TextSize = 20
     b.Parent = parent
     Instance.new("UICorner", b).CornerRadius = UDim.new(0,10)
-    -- subtle hover grow
     b.MouseEnter:Connect(function()
         TweenService:Create(b, TweenInfo.new(0.12), {Size = UDim2.new(0,540,0,46)}):Play()
     end)
@@ -142,7 +144,6 @@ local function createScriptButton(parent, text)
     return b
 end
 
--- Safe loader
 local function safeLoad(url)
     local ok, res = pcall(function()
         return game:HttpGet(url)
@@ -159,7 +160,6 @@ local function safeLoad(url)
     end
 end
 
--- Build a tab (button on tab bar + onClick fills content)
 local function createTab(name, iconId, scripts, setDefault)
     local tab = Instance.new("TextButton")
     tab.Size = UDim2.new(0, 160, 1, 0)
@@ -188,7 +188,6 @@ local function createTab(name, iconId, scripts, setDefault)
     lbl.Parent = tab
 
     local function render()
-        -- only delete previous buttons, keep layout
         for _, ch in ipairs(contentFrame:GetChildren()) do
             if ch:IsA("TextButton") then ch:Destroy() end
         end
@@ -198,7 +197,6 @@ local function createTab(name, iconId, scripts, setDefault)
                 safeLoad(data.url)
             end)
         end
-        -- ensure CanvasSize updated after new buttons
         RunService.Heartbeat:Wait()
         contentFrame.CanvasSize = UDim2.new(0,0,0, btnList.AbsoluteContentSize.Y + 10)
     end
@@ -207,18 +205,17 @@ local function createTab(name, iconId, scripts, setDefault)
     if setDefault then render() end
 end
 
--- ================= TABS & SCRIPTS =================
--- Doors tab (the one you asked)
+-- Tabs
 createTab("Doors", "rbxassetid://118732820826841", {
     { name = "Black King|KeyLess", url = "https://raw.githubusercontent.com/KINGHUB01/BlackKing-obf/main/Doors%20Blackking%20And%20BobHub" }
 }, true)
 
--- You can add more tabs (examples kept)
 createTab("Visual", "rbxassetid://118732820826841", {
     { name = "PShader", url = "https://raw.githubusercontent.com/randomstring0/pshade-ultimate/refs/heads/main/src/cd.lua" },
     { name = "Show FPS", url = "https://raw.githubusercontent.com/Truongthanhden23023/fps/refs/heads/main/fps" },
     { name = "Music Player", url = "https://raw.githubusercontent.com/Truongthanhden23023/Musicplayer/refs/heads/main/musicplayer" },
 })
+
 createTab("Fun", "rbxassetid://118732820826841", {
     { name = "Emote (Fast)", url = "https://rawscripts.net/raw/Universal-Script-Emote-Script-but-Fast-47944" },
     { name = "Gazer Editor", url = "https://rawscripts.net/raw/Universal-Script-Gazer-FE-Animation-Editor-14508" },
@@ -229,7 +226,7 @@ createTab("Utility", "rbxassetid://118732820826841", {
     { name = "Fake Lag Runner", url = "https://rawscripts.net/raw/Universal-Script-Fake-Lag-Runner-read-description-44701" },
 })
 
--- ================= TOGGLE (bottom-left) =================
+-- Toggle Button
 local toggleBtn = Instance.new("ImageButton")
 toggleBtn.Name = "ToggleUI"
 toggleBtn.AnchorPoint = Vector2.new(0,1)
@@ -250,7 +247,6 @@ toggleBtn.MouseButton1Click:Connect(function()
     setUIVisible(not uiVisible)
 end)
 
--- open/close with key P (desktop)
 UserInputService.InputBegan:Connect(function(input, gpe)
     if gpe then return end
     if input.KeyCode == Enum.KeyCode.P then
@@ -258,7 +254,7 @@ UserInputService.InputBegan:Connect(function(input, gpe)
     end
 end)
 
--- ================= FINISH LOADING =================
+-- Finish Loading
 TweenService:Create(barFill, TweenInfo.new(1.8, Enum.EasingStyle.Linear), {Size = UDim2.new(1,0,1,0)}):Play()
 task.wait(1.9)
 TweenService:Create(loadingFrame, TweenInfo.new(0.4), {BackgroundTransparency = 1}):Play()
