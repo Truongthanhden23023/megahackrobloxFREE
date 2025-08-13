@@ -185,6 +185,10 @@ createTab("Utility", "rbxassetid://118732820826841", {
     {name = "Fake Lag", url = "https://rawscripts.net/raw/Universal-Script-Fake-Lag-Runner-read-description-44701"}
 })
 
+createTab("Doors", "rbxassetid://118732820826841", {
+    {name = "Black King|KeyLess", url = "https://raw.githubusercontent.com/KINGHUB01/BlackKing-obf/main/Doors%20Blackking%20And%20BobHub"},
+})
+
 -- Toggle Button
 local toggleButton = Instance.new("ImageButton")
 toggleButton.AnchorPoint = Vector2.new(0, 1)
